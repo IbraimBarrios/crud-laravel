@@ -40,9 +40,9 @@
                                             <button 
                                                 class="bg-pink-400 dark:bg-pink-600 hover:bg-pink-500 dark:hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
                                                 type="submit"
-                                                onclick="return confirm('¿Deseas eliminar este estudiante?')"
+                                                onclick="return confirm('Do you want to remove this student?')"
                                             >
-                                                Eliminar
+                                                Delete
                                             </button>
                                         </form>
                                     </div>
