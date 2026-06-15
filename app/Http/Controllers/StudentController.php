@@ -53,7 +53,9 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $student = Student::findOrFail($id);
+
+        return view('student.edit', ['student' => $student]);
     }
 
     /**
@@ -61,7 +63,16 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:5|max:100',
+            'age' => 'required|integer|min:1'
+        ]);
+
+       $student = Student::findOrFail($id);
+
+       $student->update($request->all());
+       
+        return redirect()->route('students.index');
     }
 
     /**

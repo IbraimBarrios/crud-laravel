@@ -31,18 +31,21 @@
                                 <td class="border px-4 py-2 text-gray-900 dark:text-white text-center">{{ $student->age }}</td>
 
                                 <td class="border px-4 py-2 text-center">
-                                    <form action="{{ route('students.destroy', $student) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button 
-                                            class="bg-pink-400 dark:bg-pink-600 hover:bg-pink-500 dark:hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
-                                            type="submit"
-                                            onclick="return confirm('¿Deseas eliminar este estudiante?')"
-                                        >
-                                            Eliminar
-                                        </button>
-                                    </form>
+                                    <div class="flex justify-center">
+                                        <a href="{{ route('students.edit', $student->id) }}" class="bg-violet-500 dark:bg-violet-700 hover:bg-violet-600 dark:hover:bg-violet-800 text-white font-bold py-2 px-4 rounded mr-2">Edit</a>
+                                        <form action="{{ route('students.destroy', $student->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+    
+                                            <button 
+                                                class="bg-pink-400 dark:bg-pink-600 hover:bg-pink-500 dark:hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"
+                                                type="submit"
+                                                onclick="return confirm('¿Deseas eliminar este estudiante?')"
+                                            >
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
