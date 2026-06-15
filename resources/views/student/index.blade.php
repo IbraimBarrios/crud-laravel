@@ -32,6 +32,7 @@
 
                                 <td class="border px-4 py-2 text-center">
                                     <div class="flex justify-center">
+                                        <a href="{{ route('students.show', $student->id) }}" class="bg-green-500 dark:bg-green-700 hover:bg-green-600 dark:hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2">View</a>
                                         <a href="{{ route('students.edit', $student->id) }}" class="bg-violet-500 dark:bg-violet-700 hover:bg-violet-600 dark:hover:bg-violet-800 text-white font-bold py-2 px-4 rounded mr-2">Edit</a>
                                         <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                                             @csrf
