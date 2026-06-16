@@ -9,6 +9,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Student
+
+// Route::apiResource('students', StudentController::class); // Nota:Otra manera de definir las rutas del CRUD
 Route::get('/students', [StudentController::class, 'index']);
 
 Route::get('/students/{id}', [StudentController::class, 'show']);
