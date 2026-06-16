@@ -80,6 +80,48 @@ class StudentController extends Controller
         return response()->json($data, 200);
     }
 
+    public function update(Request $request, string $id)
+    {
+        $student = Student::find($id);
+
+        if (!$student) {
+            $data = [
+                'message' => 'Estudiante no encontrado',
+                'status' => 404
+            ];
+
+            return response()->json($data, 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:5|max:100',
+            'age' => 'required|integer|min:1'
+        ]);
+
+        if($validator->fails()){
+            $data = [
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ];
+
+            return response()->json($data,400);
+        }
+
+        $student->update([
+            'name' => $request->name,
+            'age' => $request->age
+        ]);
+
+        $data = [
+            'message' => 'Estudiante actualizado',
+            'data' => $student,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+    }
+
     public function destroy(string $id)
     {
         $student = Student::find($id);
