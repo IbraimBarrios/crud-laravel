@@ -11,9 +11,7 @@ Route::get('/user', function (Request $request) {
 // Student
 Route::get('/students', [StudentController::class, 'index']);
 
-Route::get('/students/{id}', function () {
-    return "Obtener estudiante";
-});
+Route::get('/students/{id}', [StudentController::class, 'show']);
 
 Route::post('/students', [StudentController::class, 'store']);
 
