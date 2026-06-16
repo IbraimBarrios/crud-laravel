@@ -13,7 +13,7 @@ class StudentController extends Controller
     {
         $students = Student::all();
 
-        return response()->json(['data' => $students], 200);
+        return response()->json(['data' => $students]);
     }
 
     public function store(Request $request)
@@ -29,7 +29,7 @@ class StudentController extends Controller
                 'errors' => $validator->errors(),
             ];
 
-            return response()->json($data,400);
+            return response()->json($data, 422);
         }
 
         $student = Student::create([
@@ -68,6 +68,14 @@ class StudentController extends Controller
             return response()->json(['message' => 'Estudiante no encontrado'], 404);
         }
 
+        // Ejemplo 1: Update
+        /* $validated = $request->validate([
+            'name' => 'required|string|min:5|max:100',
+            'age' => 'required|integer|min:1',
+        ]);
+
+        $student->update($validated);*/
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:5|max:100',
             'age' => 'required|integer|min:1'
@@ -79,13 +87,10 @@ class StudentController extends Controller
                 'errors' => $validator->errors(),
             ];
 
-            return response()->json($data,400);
+            return response()->json($data, 422);
         }
 
-        $student->update([
-            'name' => $request->name,
-            'age' => $request->age
-        ]);
+        $student->update($validator->validated());
 
         return response()->json([
             'message' => 'Estudiante actualizado',
