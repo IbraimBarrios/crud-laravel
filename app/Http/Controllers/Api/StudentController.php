@@ -14,7 +14,7 @@ class StudentController extends Controller
         $students = Student::all();
 
         $data = [
-            'students' => $students,
+            'data' => $students,
             'status' => 200,
         ];
 
@@ -53,7 +53,8 @@ class StudentController extends Controller
         }
 
         $data = [
-            'student' => $student,
+            'message' => 'Estudiante creado',
+            'data' => $student,
             'status' => 201
         ];
 
@@ -73,7 +74,7 @@ class StudentController extends Controller
         }
 
         $data = [
-            'student' => $student,
+            'data' => $student,
             'status' => 200
         ];
 
@@ -139,9 +140,9 @@ class StudentController extends Controller
 
         $data = [
             'message' => 'Estudiante eliminado',
-            'status' => 200
+            'status' => 204
         ];
 
-        return response()->json($data, 200);
+        return response()->json($data, 204);
     }
 }
