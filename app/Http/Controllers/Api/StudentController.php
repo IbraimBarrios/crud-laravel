@@ -13,12 +13,7 @@ class StudentController extends Controller
     {
         $students = Student::all();
 
-        $data = [
-            'data' => $students,
-            'status' => 200,
-        ];
-
-        return response()->json($data, 200);
+        return response()->json(['data' => $students], 200);
     }
 
     public function store(Request $request)
@@ -32,7 +27,6 @@ class StudentController extends Controller
             $data = [
                 'message' => 'Error en la validación de los datos',
                 'errors' => $validator->errors(),
-                'status' => 400
             ];
 
             return response()->json($data,400);
@@ -44,41 +38,26 @@ class StudentController extends Controller
         ]);
 
         if(!$student){
-            $data = [
-                'message' => 'Error al crear el estudiante',
-                'status' => 500
-            ];
-
-            return response()->json($data, 500);
+            return response()->json(['message' => 'Error al crear el estudiante'], 500);
         }
 
-        $data = [
+        return response()->json([
             'message' => 'Estudiante creado',
             'data' => $student,
-            'status' => 201
-        ];
-
-        return response()->json($data, 201);
+        ], 201);
     }
 
     public function show(string $id){
         $student = Student::find($id);
 
         if (!$student) {
-            $data = [
-                'message' => 'Estudiante no encontrado',
-                'status' => 404
-            ];
-
-            return response()->json($data, 404);
+            return response()->json(['message' => 'Estudiante no encontrado'], 404);
         }
 
-        $data = [
-            'data' => $student,
-            'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        return response()->json([
+            'message' => 'Alumno recuperado con éxito',
+            'data' => $student
+        ], 200);
     }
 
     public function update(Request $request, string $id)
@@ -86,12 +65,7 @@ class StudentController extends Controller
         $student = Student::find($id);
 
         if (!$student) {
-            $data = [
-                'message' => 'Estudiante no encontrado',
-                'status' => 404
-            ];
-
-            return response()->json($data, 404);
+            return response()->json(['message' => 'Estudiante no encontrado'], 404);
         }
 
         $validator = Validator::make($request->all(), [
@@ -103,7 +77,6 @@ class StudentController extends Controller
             $data = [
                 'message' => 'Error en la validación de los datos',
                 'errors' => $validator->errors(),
-                'status' => 400
             ];
 
             return response()->json($data,400);
@@ -114,13 +87,10 @@ class StudentController extends Controller
             'age' => $request->age
         ]);
 
-        $data = [
+        return response()->json([
             'message' => 'Estudiante actualizado',
             'data' => $student,
-            'status' => 200
-        ];
-
-        return response()->json($data, 200);
+        ], 200);
     }
 
     public function destroy(string $id)
@@ -138,11 +108,6 @@ class StudentController extends Controller
 
         $student->delete();
 
-        $data = [
-            'message' => 'Estudiante eliminado',
-            'status' => 204
-        ];
-
-        return response()->json($data, 204);
+        return response()->json(['message' => 'Estudiante eliminado'], 200);
     }
 }
